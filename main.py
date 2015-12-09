@@ -1,4 +1,4 @@
-import re
+import re, os
 from urllib.request import urlopen
 
 PG_MAIN = '/etc/init.d/postgresql'

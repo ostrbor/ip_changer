@@ -1,6 +1,7 @@
 import re
 from urllib.request import urlopen
 
+PG_MAIN = '/etc/init.d/postgresql'
 PG_CONF = '/etc/postgresql/9.4/main/pg_hba.conf'
 URL = 'http://checkip.dyndns.com/'
 IP_RE = r'\d+(\.\d+){3}'
@@ -23,8 +24,12 @@ def replace_ip(my_ip):
                 break
     return ''.join(lines)
 
+def restart():
+    os.system(PG_MAIN + ' restart')
+
 if __name__ == '__main__':
     my_ip = get_my_ip()
     new_content = replace_ip(my_ip)
     with open(PG_CONF, 'w') as f:
         f.write(new_content)
+    restart()
